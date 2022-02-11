@@ -14,7 +14,26 @@
  * Dibujar un triángulo con sus vértices en las coordenadas 
  * (-1.5,1,-6), (-2.5,-1,-6) y (-0.5,-1,-6). 
  */
+void triagle(float v1, float v2, float v3, float red, float green, float blue)
+{
+    double p = 0.0;
+    double q = 0.0;
+    double angle = 1.0;
 
+    //glPushMatrix();
+    //glTranslatef(glTranslatefX, glTranslatefY, 0);
+    glColor3f(red, green, blue);
+
+    glBegin(GL_TRIANGLES);           // Begin drawing the pyramid with 4 triangles
+      // Front
+      //glColor3f(1.0f, 0.0f, 0.0f);     // Red
+      glVertex3f( 0.0f, 1.0f, 1.0f);
+      //glColor3f(0.0f, 1.0f, 0.0f);     // Green
+      glVertex3f(-2.5f, -1.0f, 1.0f);
+      //glColor3f(0.0f, 0.0f, 1.0f);     // Blue
+      glVertex3f(1.0f, -0.8f, 1.0f);
+    glEnd();   // Done drawing the pyramid
+}
 
 /**
  * Dibujar un cuadrilátero con sus vértices en las coordenadas 
@@ -23,14 +42,15 @@
 
 void display()
 {
-
+    triagle(0.0f, 1.0f, 0.0f, 0.3f, 0.3f, 0.3f);
     glFlush(); // Render Now
+    glutSwapBuffers();  // Swap the front and back frame buffers (double buffering)
 }
 
 
 void initialize()
 {
-    glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+    glClearColor(0.4f, 0.2f, 0.2f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
