@@ -10,6 +10,7 @@
 #include <GL/glut.h>
 #include <cmath>
 #include <stdio.h>
+#include <iostream>
 
 /**
  * Dibujar un triángulo con sus vértices en las coordenadas 
@@ -77,6 +78,9 @@ case 'q':
 case 27:
 exit(0);
 break;
+default:
+std::cout<<key<<x<<" "<<y;
+break;
 }
 glutPostRedisplay();
 }
@@ -119,7 +123,7 @@ int main(int argc, char* argv[])
     initialize();                                    // Initializing
     glutReshapeFunc(reshape);
     glutKeyboardFunc(keyboard);
-    glutDisplayFunc(display);                        // Register display callback handler for window re-paint
+    glutDisplayFunc(display);                        // Register display callback handler for window re-paint           
     glutMainLoop();                                  // Enter the event-processing loop
     return 0;
 }
