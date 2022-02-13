@@ -4,18 +4,16 @@
  *            Alejandro Caicedo 1827260
  *            Nicolas Jaramillo 1840558
  *         }
- * @date 2022-02-10
+ * @date 2022-02-12
  * 
  */
 #include <GL/glut.h>
 #include <cmath>
 #include <stdio.h>
-#include <iostream>
-#include <string> 
 
 bool fullscreen = false;
-int height = 720;
-int width = 1080;
+int  width = 1280, height = 720;
+
 void keyboard(unsigned char key, int x, int y)
 {
   switch (key)
@@ -30,12 +28,6 @@ void keyboard(unsigned char key, int x, int y)
           glDisable(GL_CULL_FACE);
       else glEnable(GL_CULL_FACE);
       break;
-    case '1':
-      glRotatef(1.0,1.,0.,0.);
-      break;
-    case '2':
-      glRotatef(1.0,0.,1.,0.);
-      break;
     case 'q':
     case 27:
       exit(0);
@@ -46,53 +38,38 @@ void keyboard(unsigned char key, int x, int y)
 
 void f11(int key, int x, int y)
 {
-  switch (key)
-  {
-    case 11:
-      if(fullscreen){
+  if (key == 11){
+    if(fullscreen){
         glutReshapeWindow(width, height);
         fullscreen=false;
-      }
-      else{
-        glutFullScreen();
-        fullscreen=true;
-      }
-      break;
+    }
+    else{
+      glutFullScreen();
+      fullscreen=true;
+    }
   }
   glutPostRedisplay();
 }
 
-
-/**
- * Dibujar un triángulo con sus vértices en las coordenadas 
- * (-1.5,1,-6), (-2.5,-1,-6) y (-0.5,-1,-6). 
- */
 void triagle(float v1x, float v1y, float v1z, float v2x, float v2y, float v2z, float v3x, float v3y, float v3z, float red, float green, float blue)
 {
-    glColor3f(red, green, blue);
-
-    glBegin(GL_TRIANGLES);           // Begin drawing the triangle
-      glVertex3f(v1x, v1y, v1z);
-      glVertex3f(v2x, v2y, v2z);
-      glVertex3f(v3x, v3y, v3z);
-    glEnd();   // Done drawing the triangle
+  glColor3f(red, green, blue); // color of the triangle
+  glBegin(GL_TRIANGLES);           // Begin drawing the triangle
+    glVertex3f(v1x, v1y, v1z);
+    glVertex3f(v2x, v2y, v2z);
+    glVertex3f(v3x, v3y, v3z);
+  glEnd();   // Done drawing the triangle
 }
-
-/**
- * Dibujar un cuadrilátero con sus vértices en las coordenadas 
- * (0.5,1,-6), (2.5,1,-6), ( 2.5,-1,-6) y (0.5,-1,-6)
- */
 
 void square(float v1x, float v1y, float v1z, float v2x, float v2y, float v2z, float v3x, float v3y, float v3z, float v4x, float v4y, float v4z, float red, float green, float blue)
 {
-    glColor3f(red, green, blue);
-
-    glBegin(GL_QUADS);           // Begin drawing the square
-      glVertex3f(v1x, v1y, v1z);
-      glVertex3f(v2x, v2y, v2z);
-      glVertex3f(v3x, v3y, v3z);
-      glVertex3f(v4x, v4y, v4z);
-    glEnd();   // Done drawing the square
+  glColor3f(red, green, blue); // color of the square
+  glBegin(GL_QUADS);           // Begin drawing the square
+    glVertex3f(v1x, v1y, v1z);
+    glVertex3f(v2x, v2y, v2z);
+    glVertex3f(v3x, v3y, v3z);
+    glVertex3f(v4x, v4y, v4z);
+  glEnd();   // Done drawing the square
 }
 
 void reshape(GLsizei width, GLsizei height) {
@@ -108,42 +85,56 @@ void display()
 {
   glClearColor(0.4f, 0.2f, 0.2f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT);
-    triagle(
-      -1.5f, 1.0f, -6.0f, // First vertex
-      -2.5f,-1.0f, -6.0f, // Second vertex
-      -0.5f,-1.0f, -6.0f, // Third vertex
-      1.0f, 0.4f, 0.8f);  // RGB
-    square(
-      0.5, 1.0,-6, // First vertex
-      2.5, 1.0, -6, // Second vertex
-      2.5,-1.0, -6, // Third vertex
-      0.5,-1.0, -6, // Forth vertex
-      1.0f, 0.4f, 0.8f); // RGB
-    glFlush(); // Render Now
-    glutSwapBuffers();  // Swap the front and back frame buffers (double buffering)
+/**
+ * Hacer una traslación de (-1.5,0,-6)
+ */
+  glTranslatef( -1.5f, 0.0f, -6.0f);
+/**
+ * Dibujar un triángulo con sus vértices en las coordenadas 
+ * (0,1,0), (-1,-1,0) y (1,-1,0) 
+ */
+  triagle(
+     0.0f, 1.0f, 0.0f, // First vertex
+    -1.0f,-1.0f, 0.0f, // Second vertex
+     1.0f,-1.0f, 0.0f, // Third vertex
+     1.0f, 0.4f, 0.8f);  // RGB
+/**
+ * Hacer una traslación de (3,0,0)
+ */
+  glTranslatef( 3.0f, 0.0f, 0.0f);
+/**
+ * Dibujar un cuadrilátero con sus vértices en las coordenadas 
+ * (-1,1,0), (1,1,0), (1,-1,0) y (-1,-1,0).
+ */
+  square(
+    -1.0f, 1.0f, 0.0f, // First vertex
+     1.0f, 1.0f, 0.0f, // Second vertex
+     1.0f,-1.0f, 0.0f, // Third vertex
+    -1.0f,-1.0f, 0.0f, // Forth vertex
+     1.0f, 0.4f, 0.8f); // RGB
+  glFlush(); // Render Now
+  glutSwapBuffers();  // Swap the front and back frame buffers (double buffering)
 }
-
 
 void initialize()
 {
-    glClearColor(0.4f, 0.2f, 0.2f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
+  glutInitWindowPosition(
+    (int)(glutGet(GLUT_SCREEN_WIDTH) - width) / 2,
+    (int)(glutGet(GLUT_SCREEN_HEIGHT) - height) / 2); // Position the window's center
+  glutInitWindowSize(width, height);         // Set the window's initial width & height
+  glutCreateWindow("Ejercicio 1, Parte A");  // Create a window with the given title
+  glClearColor(0.4f, 0.2f, 0.2f, 1.0f);
+  glClear(GL_COLOR_BUFFER_BIT);
+  glutReshapeFunc(reshape);
+  glutKeyboardFunc(keyboard);
+  glutSpecialFunc(f11);
+  glutDisplayFunc(display); 
 }
 
 int main(int argc, char* argv[])
 {
-    glutInit(&argc, argv); // Initialize GLUT
-    glutInitWindowPosition(
-        (int)(glutGet(GLUT_SCREEN_WIDTH) - width) / 2,
-        (int)(glutGet(GLUT_SCREEN_HEIGHT) - height) / 2); // Position the window's center
-    glutInitWindowSize(width, height);                        // Set the window's initial width & height
-    glutCreateWindow("Ejercicio 1, Parte A");         // Create a window with the given title
-    initialize();                                    // Initializing
-    glutReshapeFunc(reshape);
-    glutKeyboardFunc(keyboard);
-    glutSpecialFunc(f11);
-    glutDisplayFunc(display);                        // Register display callback handler for window re-paint
-    bool fullscreen = false;
-    glutMainLoop();                                  // Enter the event-processing loop
-    return 0;
+  glutInit(&argc, argv);
+  initialize();
+  glutMainLoop();
+  return 0;
 }

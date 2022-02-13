@@ -51,10 +51,6 @@ void f11(int key, int x, int y)
   glutPostRedisplay();
 }
 
-/**
- * Dibujar un triángulo con sus vértices en las coordenadas 
- * (-1.5,1,-6), (-2.5,-1,-6) y (-0.5,-1,-6). 
- */
 void triagle(float v1x, float v1y, float v1z, float v2x, float v2y, float v2z, float v3x, float v3y, float v3z, float red, float green, float blue)
 {
   glColor3f(red, green, blue); // color of the triangle
@@ -64,11 +60,6 @@ void triagle(float v1x, float v1y, float v1z, float v2x, float v2y, float v2z, f
     glVertex3f(v3x, v3y, v3z);
   glEnd();   // Done drawing the triangle
 }
-
-/**
- * Dibujar un cuadrilátero con sus vértices en las coordenadas 
- * (0.5,1,-6), (2.5,1,-6), ( 2.5,-1,-6) y (0.5,-1,-6)
- */
 
 void square(float v1x, float v1y, float v1z, float v2x, float v2y, float v2z, float v3x, float v3y, float v3z, float v4x, float v4y, float v4z, float red, float green, float blue)
 {
@@ -94,11 +85,19 @@ void display()
 {
   glClearColor(0.4f, 0.2f, 0.2f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT);
+/**
+ * Dibujar un triángulo con sus vértices en las coordenadas 
+ * (-1.5,1,-6), (-2.5,-1,-6) y (-0.5,-1,-6). 
+ */
   triagle(
     -1.5f, 1.0f, -6.0f, // First vertex
     -2.5f,-1.0f, -6.0f, // Second vertex
     -0.5f,-1.0f, -6.0f, // Third vertex
     1.0f, 0.4f, 0.8f);  // RGB
+/**
+ * Dibujar un cuadrilátero con sus vértices en las coordenadas 
+ * (0.5,1,-6), (2.5,1,-6), ( 2.5,-1,-6) y (0.5,-1,-6)
+ */
   square(
     0.5, 1.0,-6, // First vertex
     2.5, 1.0, -6, // Second vertex
