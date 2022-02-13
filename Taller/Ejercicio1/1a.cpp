@@ -1,5 +1,5 @@
 /**
- * @file a.cpp
+ * @file 1a.cpp
  * @author {
  *            Alejandro Caicedo 1827260
  *            Nicolas Jaramillo 1840558
@@ -93,7 +93,7 @@ void display()
     -1.5f, 1.0f, -6.0f, // First vertex
     -2.5f,-1.0f, -6.0f, // Second vertex
     -0.5f,-1.0f, -6.0f, // Third vertex
-    1.0f, 0.4f, 0.8f);  // RGB
+    1.0f, 0.8f, 0.4f);  // RGB
 /**
  * Dibujar un cuadrilátero con sus vértices en las coordenadas 
  * (0.5,1,-6), (2.5,1,-6), ( 2.5,-1,-6) y (0.5,-1,-6)

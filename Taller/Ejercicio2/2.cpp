@@ -1,5 +1,5 @@
 /**
- * @file b.cpp
+ * @file 2.cpp
  * @author {
  *            Alejandro Caicedo 1827260
  *            Nicolas Jaramillo 1840558
@@ -51,12 +51,15 @@ void f11(int key, int x, int y)
   glutPostRedisplay();
 }
 
-void triagle(float v1x, float v1y, float v1z, float v2x, float v2y, float v2z, float v3x, float v3y, float v3z, float red, float green, float blue)
+void triagle(float v1x, float v1y, float v1z, float r1, float g1, float b1, float v2x, float v2y, float v2z, float r2, float g2, float b2, float v3x, float v3y, float v3z, float r3, float g3, float b3)
 {
-  glColor3f(red, green, blue); // color of the triangle
-  glBegin(GL_TRIANGLES);           // Begin drawing the triangle
+  
+  glBegin(GL_TRIANGLES);   // Begin drawing the triangle
+    glColor3f(r1, g1, b1); // color of the vertex
     glVertex3f(v1x, v1y, v1z);
+    glColor3f(r2, g2, b2); // color of the vertex
     glVertex3f(v2x, v2y, v2z);
+    glColor3f(r3, g3, b3); // color of the vertex
     glVertex3f(v3x, v3y, v3z);
   glEnd();   // Done drawing the triangle
 }
@@ -90,28 +93,25 @@ void display()
  */
   glTranslatef( -1.5f, 0.0f, -6.0f);
 /**
- * Dibujar un triángulo con sus vértices en las coordenadas 
- * (0,1,0), (-1,-1,0) y (1,-1,0) 
+ * genere un triángulo cuyos vértices son de color Rojo, Verde y Azul
  */
   triagle(
      0.0f, 1.0f, 0.0f, // First vertex
+     1.0f, 0.0f, 0.0f,  // RGB of the First vertex
     -1.0f,-1.0f, 0.0f, // Second vertex
+     0.0f, 1.0f, 0.0f,  // RGB of the Second vertex
      1.0f,-1.0f, 0.0f, // Third vertex
-     1.0f, 0.4f, 0.8f);  // RGB
-/**
- * Hacer una traslación de (3,0,0)
- */
+     0.0f, 0.0f, 1.0f);  // RGB of the Third vertex
   glTranslatef( 3.0f, 0.0f, 0.0f);
 /**
- * Dibujar un cuadrilátero con sus vértices en las coordenadas 
- * (-1,1,0), (1,1,0), (1,-1,0) y (-1,-1,0).
+ * Dibujar un cuadrilátero de color Cian
  */
   square(
     -1.0f, 1.0f, 0.0f, // First vertex
      1.0f, 1.0f, 0.0f, // Second vertex
      1.0f,-1.0f, 0.0f, // Third vertex
     -1.0f,-1.0f, 0.0f, // Forth vertex
-     1.0f, 0.4f, 0.8f); // RGB
+     0.0f, 1.0f, 1.0f); // RGB
   glFlush(); // Render Now
   glutSwapBuffers();  // Swap the front and back frame buffers (double buffering)
 }
@@ -122,7 +122,7 @@ void initialize()
     (int)(glutGet(GLUT_SCREEN_WIDTH) - width) / 2,
     (int)(glutGet(GLUT_SCREEN_HEIGHT) - height) / 2); // Position the window's center
   glutInitWindowSize(width, height);         // Set the window's initial width & height
-  glutCreateWindow("Ejercicio 1, Parte A");  // Create a window with the given title
+  glutCreateWindow("Ejercicio 2");  // Create a window with the given title
   glClearColor(0.4f, 0.2f, 0.2f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT);
   glutReshapeFunc(reshape);
