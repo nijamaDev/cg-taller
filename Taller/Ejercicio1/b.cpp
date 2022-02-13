@@ -1,5 +1,5 @@
 /**
- * @file a.cpp
+ * @file b.cpp
  * @author {
  *            Alejandro Caicedo 1827260
  *            Nicolas Jaramillo 1840558
@@ -11,6 +11,57 @@
 #include <cmath>
 #include <stdio.h>
 #include <iostream>
+#include <string> 
+
+bool fullscreen = false;
+int height = 720;
+int width = 1080;
+void keyboard(unsigned char key, int x, int y)
+{
+  switch (key)
+  {
+    case 'h':
+      printf("help\n\n");
+      printf("c - Toggle culling\n");
+      printf("q/escape - Quit\n\n");
+      break;
+    case 'c':
+      if (glIsEnabled(GL_CULL_FACE)) 
+          glDisable(GL_CULL_FACE);
+      else glEnable(GL_CULL_FACE);
+      break;
+    case '1':
+      glRotatef(1.0,1.,0.,0.);
+      break;
+    case '2':
+      glRotatef(1.0,0.,1.,0.);
+      break;
+    case 'q':
+    case 27:
+      exit(0);
+      break;
+  }
+  glutPostRedisplay();
+}
+
+void f11(int key, int x, int y)
+{
+  switch (key)
+  {
+    case 11:
+      if(fullscreen){
+        glutReshapeWindow(width, height);
+        fullscreen=false;
+      }
+      else{
+        glutFullScreen();
+        fullscreen=true;
+      }
+      break;
+  }
+  glutPostRedisplay();
+}
+
 
 /**
  * Dibujar un triángulo con sus vértices en las coordenadas 
@@ -44,45 +95,13 @@ void square(float v1x, float v1y, float v1z, float v2x, float v2y, float v2z, fl
     glEnd();   // Done drawing the square
 }
 
-void reshape(int width, int height)
-{ glViewport(0, 0, width, height);
-glMatrixMode(GL_PROJECTION);
-glLoadIdentity();
-gluPerspective(60.0, (GLfloat)height / (GLfloat)width, 1.0,
-128.0); glMatrixMode(GL_MODELVIEW);
-glLoadIdentity();
-gluLookAt(0.0, 0.0f, 3.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-}
-
-void keyboard(unsigned char key, int x, int y) {
-switch (key) {
-case 'h':
-printf("help\n\n");
-printf("c - Toggle culling\n");
-printf("q/escape - Quit\n\n");
-break;
-case 'c':
-if (glIsEnabled(GL_CULL_FACE))
-glDisable(GL_CULL_FACE);
-else
-glEnable(GL_CULL_FACE)
-;
-break;
-case '1':
-glRotatef(1.0,1.,0.,0.);
-break;
-case '2':
-glRotatef(1.0,0.,1.,0.);
-break;
-case 'q':
-case 27:
-exit(0);
-break;
-default:
-std::cout<<key<<x<<" "<<y;
-break;
-}
-glutPostRedisplay();
+void reshape(GLsizei width, GLsizei height) {
+  if (height == 0) height = 1;
+  GLfloat aspect = (GLfloat)width / (GLfloat)height;
+  glViewport(0, 0, width, height);
+  glMatrixMode(GL_PROJECTION);
+  glLoadIdentity();
+  gluPerspective(60.0f, aspect, 0.1f, 100.0f);
 }
 
 void display()
@@ -114,7 +133,6 @@ void initialize()
 int main(int argc, char* argv[])
 {
     glutInit(&argc, argv); // Initialize GLUT
-    int width = 720, height = 720;  // x and y value
     glutInitWindowPosition(
         (int)(glutGet(GLUT_SCREEN_WIDTH) - width) / 2,
         (int)(glutGet(GLUT_SCREEN_HEIGHT) - height) / 2); // Position the window's center
@@ -123,7 +141,9 @@ int main(int argc, char* argv[])
     initialize();                                    // Initializing
     glutReshapeFunc(reshape);
     glutKeyboardFunc(keyboard);
-    glutDisplayFunc(display);                        // Register display callback handler for window re-paint           
+    glutSpecialFunc(f11);
+    glutDisplayFunc(display);                        // Register display callback handler for window re-paint
+    bool fullscreen = false;
     glutMainLoop();                                  // Enter the event-processing loop
     return 0;
 }
